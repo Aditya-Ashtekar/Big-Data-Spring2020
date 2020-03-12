@@ -3,8 +3,7 @@ import pyspark
 from pyspark import SparkContext
 sc = SparkContext.getOrCreate("")
 from csv import reader
-Licenses = sc.textFile("task1b.out",1)
-#Licenses = sc.textFile(sys.argv[1],1)
+Licenses = sc.textFile(sys.argv[1],1)
 Licenses = Licenses.mapPartitions(lambda x:reader(x))
 
 Vehicle = Licenses.map(lambda x: (x[18],(x[3],x[5],x[8]))).distinct()
