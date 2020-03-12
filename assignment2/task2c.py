@@ -4,7 +4,7 @@ from operator import add
 from pyspark import SparkContext
 sc = SparkContext.getOrCreate("")
 from csv import reader
-AllTrips = sc.textFile("/user/ama1219/task1a.out")
+AllTrips = sc.textFile(sys.argv[1],)
 AllTrips = AllTrips.mapPartitions(lambda x:reader(x))
 
 result= AllTrips.map(lambda x: (x[3].split()[0],(float(x[15])+float(x[16])+float(x[18]),float(x[19]))))
