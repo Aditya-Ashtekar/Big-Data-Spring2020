@@ -6,7 +6,7 @@ from csv import reader
 Licenses = sc.textFile(sys.argv[1],1)
 Licenses = Licenses.mapPartitions(lambda x:reader(x))
 
-Agent = Licenses.map(lambda x: (x[20],x[5])).reduceByKey(lambda x,y: str(round(float(x)+float(y),2))).sortBy(lambda x: (x[1],x[0]),ascending=False)
+Agent = Licenses.map(lambda x: (x[20],x[5])).reduceByKey(lambda x,y: str(round(float(x)+float(y),2))).sortBy(lambda x: (-float(x[1]),x[0]))
 result = sc.parallelize(Agent.take(10))
 
 output = result.map(lambda r: ', '.join([KVPair for KVPair in r]))
