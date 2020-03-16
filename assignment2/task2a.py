@@ -11,6 +11,6 @@ res = mapped.countByKey()
 res = sc.parallelize(list(res.items()))
 res = res.filter(lambda x: x[0][0] != -1)
 result = res.map(lambda x : (x[0][0],x[0][1],x[1]))
-
+result = result.sortBy(lambda x: float(x[0]))
 output = result.map(lambda r: ', '.join([str(KVPair) for KVPair in r]))
 output.saveAsTextFile('task2a.out')
